@@ -3,21 +3,15 @@
 <polymer-element name="chat-box" attributes="what messages chatName typerName">
 <template>
   <div class="chat-window">
-    <div class="header">
-      <div class="caption">
-        {{chatName}}
-      </div>
-      <i class="remove icon" on-click="{{closeWindow}}"></i>
-    </div>
     <div class="body" id="body">
       <div id="loading" class="loading" ng-show="chatWindow.loading">
         Loading
       </div>
       <ul id="messagelist" on-mousewheel="{{scrollList}}" class="ui list">
         <template id="messages" repeat="{{message in messages}}">
-          <li class="chat item">
-            <div class="chat-entry">
-              <div class="meta">
+          <li class="message item run-{{message.run}} colorway-{{message.colorWay}}">
+            <div class="message display">
+              <div class="meta ">
                 <span class="from">{{message.who}}</span>
                 <span class="timestamp">{{message.when | dateAgo}}</span>
               </div>
@@ -28,8 +22,10 @@
       </ul>
       <div class="footer" id="footer">
         <div class="caption">
-          {{typerName}} is typing...
-        </div>      
+          <template bind if="{{typerName}}">
+            {{typerName}} is typing...
+          </template>
+        </div>
       </div>
     </div>
     <div id="poster" class="ui form chat-post">
